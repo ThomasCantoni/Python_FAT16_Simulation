@@ -41,10 +41,7 @@ print("Root Dir Sectors", dir_sector_number)
 dir_region = bytearray()
 for number in range(dir_total_size):
     dir_region.append(fileContent[Root_start_address + number])
-    #print(fileContent[Root_start_address + number])
-# print(hex(dir_region[0]))
-# for number in range(dir_entries):
-    #current_entry = Root_start_address+ number*16
+    
 
 cluster_starting_address = Root_start_address+dir_total_size
 print("Cluster zone start address (Root dir start + root dir size)",
@@ -56,11 +53,11 @@ cluster_region = bytearray()
 DirCurrentRow = 0
 for DirCurrentEntry in range(dir_entries):
     RowFirstCell = DirCurrentRow * 16
-    #currentCell = 0+RowFirstCell
+    
     if (dir_region[RowFirstCell] == 0):
         DirCurrentRow += 1
         continue
-    # print(currentCell)
+    
 
     entry_name = ''
     for entry_name_length in range(8):
@@ -69,9 +66,9 @@ for DirCurrentEntry in range(dir_entries):
 
        # print(string_toAdd)
         entry_name += bytes.fromhex(string_toAdd).decode('utf-8')
-        #currentCell += 1
+        
 
-    #DirCurrentRow += 1
+   
 
     print("ENTRY NAME: "+entry_name)
 
@@ -107,7 +104,7 @@ for DirCurrentEntry in range(dir_entries):
                 break
                 
             
-            #currentCell += 1
+            
         
         if len(fileName) <1:
             directory_cluster_ROW+=2
@@ -118,7 +115,7 @@ for DirCurrentEntry in range(dir_entries):
             string_toAdd = hex(fileContent[directory_cluster_address+ RowFirstCell+8 + file_ext_length])
             string_toAdd = string_toAdd.removeprefix('0x')
             fileExt += bytes.fromhex(string_toAdd).decode('utf-8')
-            #currentCell += 1
+            
 
         print(fileName + "."+fileExt)
         directory_cluster_ROW+=2
